@@ -1,0 +1,17 @@
+{
+  "name": "marketplace-pricing-saas",
+  "version": "1.0.0",
+  "description": "MicroSaaS de Precificação para Marketplaces",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server -p 3000"
+  },
+  "keywords": [
+    "saas",
+    "pricing",
+    "marketplace",
+    "calculator"
+  ],
+  "author": "Antigravity",
+  "license": "ISC"
+}

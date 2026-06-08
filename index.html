@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrecificaPro — Precificação Inteligente para Marketplaces</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        if (typeof lucide === 'undefined') {
+            window.lucide = {
+                createIcons: function() { console.warn('Lucide CDN offline: Fallback active.'); }
+            };
+        }
+    </script>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <!-- App Wrapper -->
+    <div id="app-container" class="app-layout hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar" id="app-sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <div class="logo-icon" style="background-color: var(--success-light); color: var(--success);">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <span class="logo-text" style="color: var(--text-primary);">Precifica<span style="color: var(--success);">Pro</span></span>
+                </div>
+                <button class="mobile-close-btn" id="mobile-sidebar-close" aria-label="Fechar Menu">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <!-- Dynamic menus rendered via JS based on user type (Admin or Client) -->
+                <ul class="nav-list" id="sidebar-menu-list">
+                    <!-- Nav items go here -->
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile-summary">
+                    <div class="user-avatar" id="sidebar-user-avatar">U</div>
+                    <div class="user-info">
+                        <span class="user-name" id="sidebar-user-name">Carregando...</span>
+                        <span class="user-role" id="sidebar-user-role">Cliente</span>
+                    </div>
+                </div>
+                <button class="logout-btn" id="sidebar-logout-btn" title="Sair da Conta">
+                    <i data-lucide="log-out"></i>
+                    <span>Sair</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="app-body">
+            <!-- Topbar Header -->
+            <header class="app-topbar">
+                <div class="topbar-left">
+                    <button class="mobile-menu-btn" id="mobile-sidebar-open" aria-label="Abrir Menu">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <div class="page-title-container">
+                        <h1 class="page-title" id="current-page-title">Dashboard</h1>
+                    </div>
+                </div>
+                
+                <div class="topbar-right">
+                    <!-- Notifications and Alerts Button for Clients -->
+                    <div class="topbar-action-container dropdown" id="topbar-alerts-container">
+                        <button class="topbar-action-btn" id="alerts-dropdown-toggle" title="Alertas do Sistema">
+                            <i data-lucide="bell"></i>
+                            <span class="badge hidden" id="alerts-count-badge">0</span>
+                        </button>
+                        <div class="dropdown-menu alert-dropdown-menu" id="alerts-dropdown-menu">
+                            <div class="dropdown-header">
+                                <span>Alertas de Prejuízo & Taxas</span>
+                                <button class="mark-all-read-btn" id="mark-all-alerts-read">Limpar tudo</button>
+                            </div>
+                            <div class="dropdown-content" id="alerts-dropdown-list">
+                                <!-- Dynamic Alert Items -->
+                                <p class="empty-alerts">Nenhum alerta pendente</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theme Toggle (Light/Dark Mode) -->
+                    <button class="topbar-action-btn" id="theme-toggle-btn" title="Alternar Tema">
+                        <i data-lucide="sun" class="theme-icon-light"></i>
+                        <i data-lucide="moon" class="theme-icon-dark"></i>
+                    </button>
+                    
+                    <!-- Profile Menu Dropdown -->
+                    <div class="topbar-action-container dropdown">
+                        <button class="profile-avatar-btn" id="profile-dropdown-toggle">
+                            <div class="profile-avatar" id="topbar-user-avatar">U</div>
+                        </button>
+                        <div class="dropdown-menu profile-dropdown-menu" id="profile-dropdown-menu">
+                            <div class="dropdown-header">
+                                <span class="profile-name" id="profile-menu-name">Usuário</span>
+                                <span class="profile-email" id="profile-menu-email">user@email.com</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#/configuracoes" class="dropdown-item">
+                                <i data-lucide="settings"></i> Configurações
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item text-danger" id="dropdown-logout-btn">
+                                <i data-lucide="log-out"></i> Sair do Sistema
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Render Target -->
+            <main class="app-main-content" id="app-view">
+                <!-- Dynamic views will be injected here -->
+            </main>
+        </div>
+    </div>
+
+    <!-- Auth Layout Wrapper (Outside layout, for login/signup) -->
+    <div id="auth-container" class="auth-layout">
+        <!-- Auth view will be injected here -->
+    </div>
+
+    <!-- Global Modal Elements -->
+    <div id="modal-container" class="modal-overlay hidden">
+        <div class="modal-card" id="modal-card">
+            <!-- Dynamic Modal Content -->
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Application Script Modules -->
+    <script type="module" src="js/db.js"></script>
+    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/router.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
