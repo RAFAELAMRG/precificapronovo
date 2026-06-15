@@ -4,10 +4,10 @@
   "description": "Backend real em Node.js/Express com Prisma ORM e JWT para PrecificaPro",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "npx prisma generate && node server.js",
     "dev": "nodemon server.js",
     "prisma:generate": "npx prisma generate",
-    "prisma:migrate": "npx prisma migrate dev --name init",
+    "prisma:migrate": "npx prisma migrate deploy",
     "prisma:seed": "node prisma/seed.js"
   },
   "prisma": {
